@@ -1,14 +1,14 @@
 <?php declare(strict_types=1);
 
-namespace RichCongress\TemplateBundle\Tests;
+namespace RichCongress\WebTestBundle\Tests;
 
-use RichCongress\Bundle\UnitBundle\TestCase\TestCase;
-use RichCongress\TemplateBundle\RichCongressTemplateBundle;
+use RichCongress\WebTestBundle\TestCase\TestCase;
+use RichCongress\WebTestBundle\RichCongressWebTestBundle;
 
 /**
  * Class DummyTest
  *
- * @package   RichCongress\TemplateBundle\Tests
+ * @package   RichCongress\WebTestBundle\Tests
  * @author    Nicolas Guilloux <nguilloux@richcongress.com>
  * @copyright 2014 - 2020 RichCongress (https://www.richcongress.com)
  */
@@ -16,8 +16,8 @@ class DummyTest extends TestCase
 {
     public function testInstanciateBundle(): void
     {
-        $bundle = new RichCongressTemplateBundle();
+        $bundle = new RichCongressWebTestBundle();
 
-        self::assertInstanceOf(RichCongressTemplateBundle::class, $bundle);
+        self::assertInstanceOf(RichCongressWebTestBundle::class, $bundle);
     }
 }

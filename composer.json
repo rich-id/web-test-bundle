@@ -1,5 +1,5 @@
 {
-    "name": "richcongress/template-bundle",
+    "name": "richcongress/web-test-bundle",
     "description": "A magic bundle",
     "type": "symfony-bundle",
     "license": "MIT",
@@ -11,27 +11,33 @@
     ],
     "support": {
         "email": "contact@richcongress.com",
-        "source": "https://github.com/richcongress/template-bundle",
-        "docs": "https://github.com/richcongress/template-bundle/blob/master/README.md",
-        "issues": "https://github.com/richcongress/template-bundle/issues"
+        "source": "https://github.com/richcongress/web-test-bundle",
+        "docs": "https://github.com/richcongress/web-test-bundle/blob/master/README.md",
+        "issues": "https://github.com/richcongress/web-test-bundle/issues"
     },
     "require": {
         "php": ">=7.3",
-        "richcongress/bundle-toolbox": "*"
+        "ext-json": "*",
+        "dama/doctrine-test-bundle": "^6.3",
+        "richcongress/bundle-toolbox": "*",
+        "richcongress/test-framework": "dev-master",
+        "symfony/console": "^4.0|^5.0"
     },
     "require-dev": {
-        "richcongress/unit-bundle": "v2.0.0.x-dev",
-        "infection/infection": "^0.16.4",
-        "php-coveralls/php-coveralls": "^2.1"
+        "roave/security-advisories": "dev-master",
+        "php-coveralls/php-coveralls": "^2.1",
+        "symfony/form": "^4.0|^5.0",
+        "symfony/orm-pack": "^1.0",
+        "symfony/security-bundle": "^4.0|^5.0"
     },
     "autoload": {
         "psr-4": {
-            "RichCongress\\TemplateBundle\\": ""
+            "RichCongress\\WebTestBundle\\": ""
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "RichCongress\\TemplateBundle\\Tests\\": "Tests/"
+            "RichCongress\\WebTestBundle\\Tests\\": "Tests/"
         }
     },
     "config": {

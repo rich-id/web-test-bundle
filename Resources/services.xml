@@ -6,6 +6,13 @@
 
     <services>
         <defaults autowire="true" autoconfigure="true" public="false"/>
-        <!-- Your Symfony Services -->
+
+        <service id="RichCongress\WebTestBundle\Command\DebugOverridenServicesCommand" />
+        <service id="RichCongress\WebTestBundle\OverrideService\OverrideServiceManager" />
+
+        <service id="RichCongress\WebTestBundle\Doctrine\TestConnectionFactory"
+                 decorates="dama.doctrine.dbal.connection_factory">
+            <argument key="$decoratedFactory" type="service" id="RichCongress\WebTestBundle\Doctrine\TestConnectionFactory.inner" />
+        </service>
     </services>
 </container>
