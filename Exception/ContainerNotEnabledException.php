@@ -2,8 +2,6 @@
 
 namespace RichCongress\WebTestBundle\Exception;
 
-use RichCongress\WebTestBundle\TestConfiguration\TestContext;
-
 /**
  * Class ContainerNotEnabledException
  *
@@ -18,7 +16,7 @@ class ContainerNotEnabledException extends \Exception
     /**
      * ContainerNotEnabledException constructor.
      */
-    protected function __construct()
+    public function __construct()
     {
         $message = static::$error;
         $message .= "\nCheck the documentation: " . static::$documentation;

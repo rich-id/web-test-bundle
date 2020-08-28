@@ -24,7 +24,7 @@ class CsrfTokenManagerMissingException extends \Exception
     /**
      * ContainerNotEnabledException constructor.
      */
-    protected function __construct()
+    public function __construct()
     {
         $message = static::$error;
         $message .= "\nCheck the documentation: " . static::$documentation;

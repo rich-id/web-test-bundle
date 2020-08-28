@@ -16,7 +16,7 @@ class EntityManagerNotFoundException extends \Exception
     /**
      * EntityManagerNotFoundException constructor.
      */
-    protected function __construct()
+    public function __construct()
     {
         $message = static::$error;
         $message .= "\nCheck the documentation: " . static::$documentation;
