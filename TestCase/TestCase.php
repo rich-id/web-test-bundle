@@ -7,74 +7,63 @@ use Doctrine\Persistence\ObjectRepository;
 use Psr\Container\ContainerInterface;
 use RichCongress\WebTestBundle\Exception\ContainerNotEnabledException;
 use RichCongress\WebTestBundle\Exception\EntityManagerNotFoundException;
-use RichCongress\WebTestBundle\OverrideService\OverrideServiceManager;
+use RichCongress\WebTestBundle\TestCase\Internal\WebTestCase;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase as BaseWebTestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
- * Class WebTestCase
+ * Class TestCase
  *
- * @package   RichCongress\WebTestBundle\TestCase
- * @author    Nicolas Guilloux <nguilloux@richcongress.com>
- * @copyright 2014 - 2020 RichCongress (https://www.richcongress.com)
+ * @package    RichCongress\WebTestBundle\TestCase
+ * @author     Nicolas Guilloux <nguilloux@richcongress.com>
+ * @copyright  2014 - 2020 RichCongress (https://www.richcongress.com)
  */
-class WebTestCase extends BaseWebTestCase
+abstract class TestCase extends \RichCongress\TestTools\TestCase\TestCase
 {
-    /** @var KernelBrowser */
-    private static $client;
+    /** @var WebTestCase */
+    private $innerTestCase;
 
-    /**
-     * @return void
-     */
-    public function setUp(): void
+    public function __construct(?string $name = null, array $data = [], $dataName = '')
     {
-        parent::setUp();
+        $this->innerTestCase = new WebTestCase($name, $data, $dataName);
 
-        static::$client = static::createClient();
+        parent::__construct($name, $data, $dataName);
     }
 
-    /**
-     * @return void
-     */
+    public function setUp(): void
+    {
+        $this->innerTestCase->setUp();
+
+        parent::setUp();
+    }
+
     public function tearDown(): void
     {
-        /** @var OverrideServiceManager $overrideServiceManager */
-        $overrideServiceManager = static::$container->get(OverrideServiceManager::class);
-        $overrideServiceManager->cleanServices();
+        $this->innerTestCase->tearDown();
 
         parent::tearDown();
     }
 
-    /**
-     * @return ContainerInterface
-     */
     protected function getContainer(): ContainerInterface
     {
-        return static::$container;
+        return $this->innerTestCase->getContainer();
+    }
+
+    protected function getClient(): KernelBrowser
+    {
+        return $this->innerTestCase->getClient();
     }
 
     /**
-     * @param string $service
-     *
-     * @return object|null
+     * @return mixed|object|null
      */
     protected function getService(string $service)
     {
-        if (static::$client === null) {
-            throw new ContainerNotEnabledException();
-        }
-
         return $this->getContainer()->get($service);
     }
 
-    /**
-     * Gets the entity manager
-     *
-     * @return ObjectManager
-     */
     protected function getManager(): ObjectManager
     {
         try {
@@ -87,22 +76,11 @@ class WebTestCase extends BaseWebTestCase
         }
     }
 
-    /**
-     * @param string $entityClass
-     *
-     * @return ObjectRepository|null
-     */
     protected function getRepository(string $entityClass): ?ObjectRepository
     {
         return $this->getManager()->getRepository($entityClass);
     }
 
-    /**
-     * @param string $name
-     * @param array  $params
-     *
-     * @return string
-     */
     protected function executeCommand(string $name, array $params = []): string
     {
         $params['command'] = $name;

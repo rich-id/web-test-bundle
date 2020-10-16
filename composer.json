@@ -21,6 +21,7 @@
         "dama/doctrine-test-bundle": "^6.3",
         "richcongress/bundle-toolbox": "*",
         "richcongress/test-framework": "dev-master",
+        "richcongress/test-tools": "dev-master",
         "symfony/console": "^4.0|^5.0"
     },
     "require-dev": {

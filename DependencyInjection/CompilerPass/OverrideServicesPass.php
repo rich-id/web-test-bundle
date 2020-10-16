@@ -37,7 +37,7 @@ class OverrideServicesPass extends AbstractCompilerPass
         $taggedServices = $this->findAndSortTaggedServices(self::OVERRIDE_SERVICE_TAG, $container);
 
         foreach ($taggedServices as $service) {
-            $definition = $container->findDefinition($service);
+            $definition = $container->findDefinition((string) $service);
             $class = $definition->getClass();
             $reference = new Reference($class);
             static::decorateServices($definition);
