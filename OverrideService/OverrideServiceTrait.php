@@ -21,13 +21,4 @@ trait OverrideServiceTrait
             : [];
     }
 
-    /**
-     * Here reset all variables to their original state
-     *
-     * @return void
-     */
-    public function clean(): void
-    {
-        // Override to use this function
-    }
 }

@@ -33,5 +33,6 @@ final class TestConnectionFactoryPass extends AbstractCompilerPass
                 new Reference(TestConnectionFactory::class . '.inner')
             );
 
+        $container->setDefinition(TestConnectionFactory::class, $definition);
     }
 }

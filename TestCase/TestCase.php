@@ -5,7 +5,6 @@ namespace RichCongress\WebTestBundle\TestCase;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Persistence\ObjectRepository;
 use Psr\Container\ContainerInterface;
-use RichCongress\WebTestBundle\Exception\ContainerNotEnabledException;
 use RichCongress\WebTestBundle\Exception\EntityManagerNotFoundException;
 use RichCongress\WebTestBundle\TestCase\Internal\WebTestCase;
 use Symfony\Bundle\FrameworkBundle\Console\Application;

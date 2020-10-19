@@ -18,12 +18,4 @@ class AbstractOverrideService implements OverrideServiceInterface
     public static $overridenServices = [];
 
     use OverrideServiceTrait;
-
-    /**
-     * AbstractOverrideService constructor.
-     */
-    public function __construct()
-    {
-        $this->clean();
-    }
 }

@@ -54,10 +54,7 @@ class TestConnectionFactory extends ConnectionFactory
         StaticDriver::setKeepStaticConnections(true);
         $params['dama.keep_static'] = true;
 
-        $connection = $this->decoratedFactory->createConnection($parameters, $config, $eventManager, $mappingTypes);
-        $connection->getSchemaManager()->
-
-        return $connection;
+        return $this->decoratedFactory->createConnection($parameters, $config, $eventManager, $mappingTypes);
     }
 
     /**

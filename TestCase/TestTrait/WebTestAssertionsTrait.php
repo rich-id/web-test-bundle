@@ -13,8 +13,6 @@ use Symfony\Bundle\FrameworkBundle\KernelBrowser;
  */
 trait WebTestAssertionsTrait
 {
-    use \Symfony\Bundle\FrameworkBundle\Test\WebTestAssertionsTrait;
-
     protected static function assertStatusCode(int $expected, KernelBrowser $kernelBrowser): void
     {
         $response = $kernelBrowser->getResponse();
