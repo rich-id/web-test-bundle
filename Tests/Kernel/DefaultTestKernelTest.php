@@ -47,6 +47,7 @@ final class DefaultTestKernelTest extends TestCase
         $parameterBag = $this->getService(ParameterBagInterface::class);
         $bundles = $parameterBag->get('kernel.bundles');
 
+        self::assertCount(5, $bundles);
         self::assertContains(DoctrineBundle::class, $bundles);
         self::assertContains(FrameworkBundle::class, $bundles);
         self::assertContains(DAMADoctrineTestBundle::class, $bundles);
@@ -64,6 +65,22 @@ final class DefaultTestKernelTest extends TestCase
         $loader = \Mockery::mock(LoaderInterface::class);
         $loader->shouldReceive('load')->once();
         $kernel->registerContainerConfiguration($loader);
+    }
+
+    public function testRegisterBundlesWithoutConfigPath(): void
+    {
+        $kernel = new DefaultTestKernel('inner_test', false);
+        $bundles = $kernel->registerBundles();
+
+        self::assertCount(4, $bundles);
+    }
+
+    public function testRegisterBundlesWithConfigPath(): void
+    {
+        $kernel = new TestKernel();
+        $bundles = $kernel->registerBundles();
+
+        self::assertCount(5, $bundles);
     }
 
     public function testRegisterContainerConfigurationWithoutConfigPath(): void
