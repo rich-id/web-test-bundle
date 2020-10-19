@@ -39,22 +39,29 @@ class DefaultTestKernel extends Kernel
      */
     public function registerBundles(): iterable
     {
-        $configDir = $this->getConfigurationDir();
-
         foreach (static::$defaultBundles as $class) {
             yield new $class();
         }
 
-        if ($this->getConfigurationDir() !== null && file_exists($configDir . '/bundles.php')) {
-            $contents = require $configDir . '/bundles.php';
+        return $this->registerCustomBundles();
+    }
 
-            foreach ($contents as $class => $envs) {
-                $appropriateEnv = $envs[$this->environment] ?? $envs['all'] ?? false;
-                $isAlreadyLoaded = in_array($class, static::$defaultBundles, true);
+    protected function registerCustomBundles(): iterable
+    {
+        $configDir = $this->getConfigurationDir();
 
-                if ($appropriateEnv && !$isAlreadyLoaded) {
-                    yield new $class();
-                }
+        if ($configDir === null || !file_exists($configDir . '/bundles.php')) {
+            return;
+        }
+
+        $contents = require $configDir . '/bundles.php';
+
+        foreach ($contents as $class => $envs) {
+            $appropriateEnv = $envs[$this->environment] ?? $envs['all'] ?? false;
+            $isAlreadyLoaded = in_array($class, static::$defaultBundles, true);
+
+            if ($appropriateEnv && !$isAlreadyLoaded) {
+                yield new $class();
             }
         }
     }
