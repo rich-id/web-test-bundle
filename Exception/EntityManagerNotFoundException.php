@@ -5,21 +5,27 @@ namespace RichCongress\WebTestBundle\Exception;
 /**
  * Class EntityManagerNotFoundException
  *
- * @package RichCongress\WebTestBundle\Exception
- * @author  Nicolas Guilloux <novares.x@gmail.com>
+ * @package    RichCongress\WebTestBundle\Exception
+ * @author     Nicolas Guilloux <nguilloux@richcongress.com>
+ * @copyright  2014 - 2020 RichCongress (https://www.richcongress.com)
+ *
+ * @covers \RichCongress\WebTestBundle\Exception\EntityManagerNotFoundException
  */
-class EntityManagerNotFoundException extends \Exception
+final class EntityManagerNotFoundException extends \Exception
 {
+    /** @var string  */
     protected static $error = 'The Entity manager cannot be found. Check your Doctrine documentation.';
-    protected static $documentation = 'https://github.com/richcongress/web-test-bundle/blob/master/Docs/Exceptions.md';
+
+    /** @var string  */
+    protected static $documentation = 'https://github.com/richcongress/web-test-bundle/blob/master/Docs/Exceptions.md#EntityManagerNotFoundException';
 
     /**
      * EntityManagerNotFoundException constructor.
      */
     public function __construct()
     {
-        $message = static::$error;
-        $message .= "\nCheck the documentation: " . static::$documentation;
+        $message = self::$error;
+        $message .= "\nCheck the documentation: " . self::$documentation;
 
         parent::__construct($message);
     }

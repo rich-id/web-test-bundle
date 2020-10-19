@@ -2,6 +2,7 @@
 
 namespace RichCongress\WebTestBundle\DependencyInjection;
 
+use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use RichCongress\BundleToolbox\Configuration\AbstractExtension;
 use RichCongress\WebTestBundle\DependencyInjection\CompilerPass\OverrideServicesPass;
 use RichCongress\WebTestBundle\OverrideService\OverrideServiceInterface;
@@ -33,6 +34,22 @@ class RichCongressWebTestExtension extends AbstractExtension implements PrependE
             ]
         );
 
+        $bundles = $container->getParameter('kernel.bundles');
+
+        if (array_key_exists('DoctrineBundle', $bundles)) {
+            $container->prependExtensionConfig(
+                'doctrine',
+                [
+                    'dbal' => [
+                        'driver' => 'pdo_sqlite',
+                        'user'   => 'test',
+                        'path'   => '%kernel.cache_dir%/__DBNAME__.db',
+                        'url'    => null,
+                        'memory' => false,
+                    ],
+                ]
+            );
+        }
     }
 
     /**

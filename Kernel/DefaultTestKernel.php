@@ -95,7 +95,6 @@ class DefaultTestKernel extends Kernel
 
     /**
      * @param ContainerBuilder $container
-     *
      * @param LoaderInterface  $loader
      *
      * @return void
@@ -108,15 +107,14 @@ class DefaultTestKernel extends Kernel
         $container->loadFromExtension('framework', [
             'router' => [
                 'resource' => 'kernel::loadRoutes',
-                'type' => 'service',
+                'type'     => 'service',
             ],
         ]);
 
         if (!$container->hasDefinition('kernel')) {
             $container->register('kernel', static::class)
                 ->setSynthetic(true)
-                ->setPublic(true)
-            ;
+                ->setPublic(true);
         }
 
         $kernelDefinition = $container->getDefinition('kernel');
@@ -141,9 +139,13 @@ class DefaultTestKernel extends Kernel
         $routes = new RouteCollectionBuilder($loader);
         $confDir = $this->getConfigurationDir();
 
-        $routes->import($confDir.'/{routes}/'.$this->environment.'/**/*'.self::CONFIG_EXTS, '/', 'glob');
-        $routes->import($confDir.'/{routes}/*'.self::CONFIG_EXTS, '/', 'glob');
-        $routes->import($confDir.'/{routes}'.self::CONFIG_EXTS, '/', 'glob');
+        if ($confDir === null) {
+            return $routes->build();
+        }
+
+        $routes->import($confDir . '/{routes}/' . $this->environment . '/**/*' . self::CONFIG_EXTS, '/', 'glob');
+        $routes->import($confDir . '/{routes}/*' . self::CONFIG_EXTS, '/', 'glob');
+        $routes->import($confDir . '/{routes}' . self::CONFIG_EXTS, '/', 'glob');
 
         return $routes->build();
     }

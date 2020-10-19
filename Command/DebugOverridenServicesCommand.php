@@ -17,36 +17,23 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class DebugOverridenServicesCommand extends Command
 {
-    public static $defaultName = 'debug:overriden_services';
+    /** @var string */
+    protected static $defaultName = 'debug:overriden_services';
 
     /** @var array|string[]|OverrideServiceInterface[] */
     protected $overrideServiceClasses = [];
 
-    /**
-     * @param string $overrideServiceClass
-     *
-     * @return void
-     */
     public function addOverrideServiceClass(string $overrideServiceClass): void
     {
         $this->overrideServiceClasses[] = $overrideServiceClass;
     }
 
-    /**
-     * @return void
-     */
     protected function configure(): void
     {
         $this->setDescription('Prints out all test services that override base services');
     }
 
-    /**
-     * @param InputInterface  $input
-     * @param OutputInterface $output
-     *
-     * @return void
-     */
-    protected function execute(InputInterface $input, OutputInterface $output): void
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $content = \array_map(
             static function (string $overrideServiceClass) {
@@ -64,5 +51,7 @@ class DebugOverridenServicesCommand extends Command
         $table->setHeaders(['Service classname', 'Overriden services']);
         $table->setRows($content);
         $table->render();
+
+        return 0;
     }
 }

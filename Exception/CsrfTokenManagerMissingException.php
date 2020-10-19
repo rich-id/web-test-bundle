@@ -9,25 +9,21 @@ namespace RichCongress\WebTestBundle\Exception;
  * @author    Nicolas Guilloux <nguilloux@richcongress.com>
  * @copyright 2014 - 2020 RichCongress (https://www.richcongress.com)
  */
-class CsrfTokenManagerMissingException extends \Exception
+final class CsrfTokenManagerMissingException extends \Exception
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     protected static $error = 'The Security\'s CSRF Token Manager is missing from the container.';
 
-    /**
-     * @var string
-     */
-    protected static $documentation = 'https://symfony.com/doc/current/security/csrf.html';
+    /** @var string  */
+    protected static $documentation = 'https://github.com/richcongress/web-test-bundle/blob/master/Docs/Exceptions.md#CsrfTokenManagerMissingException';
 
     /**
      * ContainerNotEnabledException constructor.
      */
     public function __construct()
     {
-        $message = static::$error;
-        $message .= "\nCheck the documentation: " . static::$documentation;
+        $message = self::$error;
+        $message .= "\nCheck the documentation: " . self::$documentation;
 
         parent::__construct($message);
     }

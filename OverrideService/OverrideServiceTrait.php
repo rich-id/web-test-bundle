@@ -11,6 +11,9 @@ namespace RichCongress\WebTestBundle\OverrideService;
  */
 trait OverrideServiceTrait
 {
+    /** @var static|object */
+    protected $innerService;
+
     /**
      * @return array
      */
@@ -18,6 +21,11 @@ trait OverrideServiceTrait
     {
         return isset(static::$overridenServices)
             ? (array) static::$overridenServices
-            : [];
+            : ['test'];
+    }
+
+    public function setInnerService($service): void
+    {
+        $this->innerService = $service;
     }
 }

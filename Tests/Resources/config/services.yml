@@ -1,0 +1,12 @@
+parameters:
+    request_listener.http_port: 80
+    request_listener.https_port: 443
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: true
+
+    RichCongress\WebTestBundle\Tests\Resources\Stubs\:
+        resource: '../Stubs'

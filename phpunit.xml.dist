@@ -12,7 +12,8 @@
     <php>
         <ini name="error_reporting" value="-1" />
         <server name="CONFIG_TYPE" value="default" />
-        <!-- <env name="SYMFONY_PHPUNIT_VERSION" value="7.5"/>-->
+        <env name="KERNEL_DIR" value="Tests/Resources/config" />
+        <env name="KERNEL_CLASS" value="RichCongress\WebTestBundle\Tests\Resources\config\TestKernel" />
     </php>
 
     <testsuites>
@@ -30,9 +31,12 @@
                 <directory>DependencyInjection</directory>
                 <directory>Resources</directory>
                 <directory>Tests</directory>
+                <directory>var</directory>
                 <directory>vendor</directory>
+                <file>.phpstorm.meta.php</file>
                 <file>phpunit-filter.php</file>
                 <file>RichCongressWebTestBundle.php</file>
+                <file>TestHook.php</file>
             </exclude>
         </whitelist>
     </filter>
