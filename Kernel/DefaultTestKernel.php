@@ -43,20 +43,7 @@ class DefaultTestKernel extends Kernel
             yield new $class();
         }
 
-        return $this->registerCustomBundles();
-    }
-
-    protected function registerCustomBundles(): iterable
-    {
-        $configDir = $this->getConfigurationDir();
-
-        if ($configDir === null || !file_exists($configDir . '/bundles.php')) {
-            return;
-        }
-
-        $contents = require $configDir . '/bundles.php';
-
-        foreach ($contents as $class => $envs) {
+        foreach ($this->getCustomBundles() as $class => $envs) {
             $appropriateEnv = $envs[$this->environment] ?? $envs['all'] ?? false;
             $isAlreadyLoaded = in_array($class, static::$defaultBundles, true);
 
@@ -64,6 +51,17 @@ class DefaultTestKernel extends Kernel
                 yield new $class();
             }
         }
+    }
+
+    protected function getCustomBundles(): array
+    {
+        $configDir = $this->getConfigurationDir();
+
+        if ($configDir === null || !file_exists($configDir . '/bundles.php')) {
+            return [];
+        }
+
+        return require $configDir . '/bundles.php';
     }
 
     /**
