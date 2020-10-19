@@ -44,7 +44,7 @@ class RichCongressWebTestExtension extends AbstractExtension implements PrependE
     public function load(array $configs, ContainerBuilder $container): void
     {
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources'));
-        $loader->load('services.yml');
+        $loader->load('services.xml');
 
         $container->registerForAutoconfiguration(OverrideServiceInterface::class)->addTag(OverrideServicesPass::OVERRIDE_SERVICE_TAG);
     }

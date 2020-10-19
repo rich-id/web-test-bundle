@@ -19,14 +19,14 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase as BaseWebTestCase;
 final class WebTestCase extends BaseWebTestCase
 {
     /** @var KernelBrowser */
-    private static $client;
+    private $client;
 
     /**
      * @internal
      */
     public function setUp(): void
     {
-        self::$client = self::createClient();
+        $this->client = self::createClient();
     }
 
     /**
@@ -35,17 +35,17 @@ final class WebTestCase extends BaseWebTestCase
     public function tearDown(): void
     {
         /** @var OverrideServiceManager $overrideServiceManager */
-        $overrideServiceManager = $this->getContainer()->get(OverrideServiceManager::class);
+        $overrideServiceManager = $this->getCurrentContainer()->get(OverrideServiceManager::class);
         $overrideServiceManager->cleanServices();
 
         parent::tearDown();
-        self::$client = null;
+        $this->client = null;
     }
 
     /**
      * @internal
      */
-    public function getContainer(): ContainerInterface
+    public function getCurrentContainer(): ContainerInterface
     {
         return self::$container;
     }
@@ -53,8 +53,8 @@ final class WebTestCase extends BaseWebTestCase
     /**
      * @internal
      */
-    public function getClient(): KernelBrowser
+    public function getCurrentClient(): KernelBrowser
     {
-        return self::$client;
+        return $this->client;
     }
 }

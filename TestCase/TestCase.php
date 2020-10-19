@@ -48,12 +48,12 @@ abstract class TestCase extends \RichCongress\TestTools\TestCase\TestCase
 
     protected function getContainer(): ContainerInterface
     {
-        return $this->innerTestCase->getContainer();
+        return $this->innerTestCase->getCurrentContainer();
     }
 
     protected function getClient(): KernelBrowser
     {
-        return $this->innerTestCase->getClient();
+        return $this->innerTestCase->getCurrentClient();
     }
 
     /**

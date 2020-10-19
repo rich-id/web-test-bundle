@@ -4,6 +4,7 @@ namespace RichCongress\WebTestBundle;
 
 use RichCongress\BundleToolbox\Configuration\AbstractBundle;
 use RichCongress\WebTestBundle\DependencyInjection\CompilerPass\OverrideServicesPass;
+use RichCongress\WebTestBundle\DependencyInjection\CompilerPass\TestConnectionFactoryPass;
 
 /**
  * Class RichCongressWebTestBundle
@@ -14,5 +15,5 @@ use RichCongress\WebTestBundle\DependencyInjection\CompilerPass\OverrideServices
  */
 class RichCongressWebTestBundle extends AbstractBundle
 {
-    public const COMPILER_PASSES = [OverrideServicesPass::class];
+    public const COMPILER_PASSES = [OverrideServicesPass::class, TestConnectionFactoryPass::class];
 }
