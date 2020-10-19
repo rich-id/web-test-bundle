@@ -20,5 +20,4 @@ trait OverrideServiceTrait
             ? (array) static::$overridenServices
             : [];
     }
-
 }

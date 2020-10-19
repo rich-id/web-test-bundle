@@ -37,10 +37,8 @@ class OverrideServicesPass extends AbstractCompilerPass
         foreach ($taggedServices as $service) {
             $definition = $container->findDefinition((string) $service);
             $class = $definition->getClass();
-            $reference = new Reference($class);
             static::decorateServices($definition);
 
-            $managerDefinition->addMethodCall('addOverrideService', [$reference]);
             $commandDefinition->addMethodCall('addOverrideServiceClass', [$class]);
         }
     }

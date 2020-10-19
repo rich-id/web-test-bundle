@@ -17,7 +17,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class DebugOverridenServicesCommand extends Command
 {
-    public static $defaultName = 'debug:overridden_services';
+    public static $defaultName = 'debug:overriden_services';
 
     /** @var array|string[]|OverrideServiceInterface[] */
     protected $overrideServiceClasses = [];
