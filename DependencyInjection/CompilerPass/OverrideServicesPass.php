@@ -5,7 +5,6 @@ namespace RichCongress\WebTestBundle\DependencyInjection\CompilerPass;
 use RichCongress\BundleToolbox\Configuration\AbstractCompilerPass;
 use RichCongress\WebTestBundle\Command\DebugOverridenServicesCommand;
 use RichCongress\WebTestBundle\OverrideService\OverrideServiceInterface;
-use RichCongress\WebTestBundle\OverrideService\OverrideServiceManager;
 use Symfony\Component\DependencyInjection\Compiler\PriorityTaggedServiceTrait;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -32,7 +31,6 @@ class OverrideServicesPass extends AbstractCompilerPass
      */
     public function process(ContainerBuilder $container): void
     {
-        $managerDefinition = $container->findDefinition(OverrideServiceManager::class);
         $commandDefinition = $container->findDefinition(DebugOverridenServicesCommand::class);
         $taggedServices = $this->findAndSortTaggedServices(self::OVERRIDE_SERVICE_TAG, $container);
 

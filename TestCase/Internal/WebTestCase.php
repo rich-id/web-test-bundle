@@ -5,7 +5,6 @@ namespace RichCongress\WebTestBundle\TestCase\Internal;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Container\ContainerInterface;
 use RichCongress\WebTestBundle\Doctrine\DatabaseSchemaInitializer;
-use RichCongress\WebTestBundle\OverrideService\OverrideServiceManager;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase as BaseWebTestCase;
 
