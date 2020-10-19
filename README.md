@@ -1,23 +1,16 @@
-# Template Bundle tasks
-
-- Add the Secret `COVERALLS_SECRET` in the Github Actions to have [Coveralls](https://coveralls.io/repos/new) working
-- Add the bundle to [Code Climate quality tool](https://codeclimate.com/dashboard) and change the badge URL
-- Remove these lines
-
-
-The RichCongress Template Bundle
+The RichCongress Web Test Bundle
 =======================================
 
-This version of the bundle requires Symfony 4.4+ and PHP 7.3+.
+This version of the bundle requires Symfony 3.4+ and PHP 7.3+.
 
 [![Package version](https://img.shields.io/packagist/v/richcongress/web-test-bundle)](https://packagist.org/packages/richcongress/web-test-bundle)
 [![Actions Status](https://github.com/richcongress/web-test-bundle/workflows/Tests/badge.svg)](https://github.com/t/richcongress/web-test-bundle/actions)
 [![Coverage Status](https://coveralls.io/repos/github/richcongress/web-test-bundle/badge.svg?branch=master)](https://coveralls.io/github/richcongress/web-test-bundle?branch=master)
-[![Maintainability](https://api.codeclimate.com/v1/badges/web-test-bundle/maintainability)](https://codeclimate.com/github/richcongress/web-test-bundle/maintainability)
+[![Maintainability](https://api.codeclimate.com/v1/badges/ac0f4c281486c5e849b6/maintainability)](https://codeclimate.com/github/richcongress/web-test-bundle/maintainability)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/richcongress/web-test-bundle/issues)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.md)
 
-Short description
+Extends from the Symfony's WebTestCase and brings some improvements such as cleaner tests assertions, easier client creation, and a database generation with its reset between tests.
 
 
 # Quick start
@@ -36,7 +29,7 @@ Quick showcase
 
 # 1. Installation
 
-This version of the bundle requires Symfony 4.4+ and PHP 7.3+.
+This version of the bundle requires Symfony 3.4+ and PHP 7.3+.
 
 ```bash
 composer require richcongress/web-test-bundle
@@ -44,7 +37,7 @@ composer require richcongress/web-test-bundle
 
 # 2 Getting started
 
-- [Configuration](Docs/Configuration.md)
+- [Exceptions](Docs/Exceptions.md)
 
 # 3. Versioning
 
