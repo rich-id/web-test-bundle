@@ -13,3 +13,6 @@ services:
 
     RichCongress\WebTestBundle\Tests\Resources\Repository\:
         resource: '../Repository'
+
+    test.dummy_form_type:
+        class: RichCongress\WebTestBundle\Tests\Resources\FormType\DummyFormType

@@ -24,9 +24,6 @@ abstract class ControllerTestCase extends TestCase
      */
     protected function getCsrfToken(string $intention): string
     {
-        $container = $this->getContainer();
-        $class = null;
-
         try {
             /** @var CsrfTokenManagerInterface $csrfTokenManager */
             $csrfTokenManager = $this->getService(CsrfTokenManagerInterface::class);
@@ -34,7 +31,9 @@ abstract class ControllerTestCase extends TestCase
             throw new CsrfTokenManagerMissingException();
         }
 
-        if ($container->has($intention)) {
+        $class = null;
+
+        if ($this->getContainer()->has($intention)) {
             $class = $this->getService($intention);
         } elseif (\is_subclass_of($intention, FormTypeInterface::class)) {
             $class = new $intention();

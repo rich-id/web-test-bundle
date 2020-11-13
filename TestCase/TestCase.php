@@ -66,11 +66,16 @@ abstract class TestCase extends \RichCongress\TestTools\TestCase\TestCase
         return $this->getContainer()->get($service);
     }
 
-    protected function getManager(): EntityManagerInterface
+    protected function getManager(string $name = 'default'): EntityManagerInterface
     {
         try {
             /** @var EntityManagerInterface $manager */
-            $manager = $this->getService('doctrine.orm.default_entity_manager');
+            $manager = $this->getService(
+                sprintf(
+                    'doctrine.orm.%s_entity_manager',
+                    $name
+                )
+            );
 
             return $manager;
         } catch (\Throwable $e) {

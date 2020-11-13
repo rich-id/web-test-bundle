@@ -2,7 +2,6 @@
 
 namespace RichCongress\WebTestBundle\Tests\Doctrine;
 
-use Doctrine\ORM\EntityManagerInterface;
 use RichCongress\WebTestBundle\Doctrine\DatabaseSchemaInitializer;
 use RichCongress\WebTestBundle\TestCase\TestCase;
 
@@ -19,21 +18,17 @@ final class DatabaseSchemaInitializerTest extends TestCase
 {
     public function testIsAlreadyInitialized(): void
     {
-        /** @var EntityManagerInterface $entityManager */
         $entityManager = $this->getManager();
-        self::assertInstanceOf(EntityManagerInterface::class, $entityManager);
-
         self::assertTrue(DatabaseSchemaInitializer::isInitialized($entityManager));
+
         DatabaseSchemaInitializer::init($entityManager);
     }
 
     public function testInitialization(): void
     {
-        /** @var EntityManagerInterface $entityManager */
-        $entityManager = $this->getService('doctrine.orm.aux_entity_manager');
-        self::assertInstanceOf(EntityManagerInterface::class, $entityManager);
-
+        $entityManager = $this->getManager('aux');
         self::assertFalse(DatabaseSchemaInitializer::isInitialized($entityManager));
+
         DatabaseSchemaInitializer::init($entityManager);
     }
 }
