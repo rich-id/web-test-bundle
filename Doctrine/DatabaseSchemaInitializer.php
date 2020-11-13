@@ -19,12 +19,17 @@ final class DatabaseSchemaInitializer
 
     public static function init(EntityManagerInterface $entityManager): void
     {
-        $key = self::getKey($entityManager);
-        $schemaTool = new SchemaTool($entityManager);
-        $metadatas = $entityManager->getMetadataFactory()->getAllMetadata();
+        if (self::isInitialized($entityManager)) {
+            return;
+        }
 
+        $metadatas = $entityManager->getMetadataFactory()->getAllMetadata();
+        $schemaTool = new SchemaTool($entityManager);
         $schemaTool->createSchema($metadatas);
+
+        $key = self::getKey($entityManager);
         self::$initializedEntityManagers[$key] = true;
+
     }
 
     public static function isInitialized(EntityManagerInterface $entityManager): bool
@@ -34,8 +39,10 @@ final class DatabaseSchemaInitializer
         return (self::$initializedEntityManagers[$key] ?? false) === true;
     }
 
-    private static function getKey(EntityManagerInterface $entityManager): string
+    protected static function getKey(EntityManagerInterface $entityManager): string
     {
-        return spl_object_hash($entityManager);
+        $serializedParams = serialize($entityManager->getConnection()->getParams());
+
+        return md5($serializedParams);
     }
 }

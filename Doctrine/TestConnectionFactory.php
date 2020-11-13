@@ -52,7 +52,7 @@ class TestConnectionFactory extends ConnectionFactory
 
         // Force static driver
         StaticDriver::setKeepStaticConnections(true);
-        $params['dama.keep_static'] = true;
+        $parameters['dama.keep_static'] = true;
 
         return $this->decoratedFactory->createConnection($parameters, $config, $eventManager, $mappingTypes);
     }
@@ -71,7 +71,7 @@ class TestConnectionFactory extends ConnectionFactory
             $params['dbname'] .= '_' . $testToken;
         }
 
-        $params['path'] = \str_replace('__DBNAME__', $params['dbname'], $params['path']);
+        $params['path'] = \str_replace('__DBNAME__', $params['dbname'], $params['path'] ?? '');
 
         return $params;
     }

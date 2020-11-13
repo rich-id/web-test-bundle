@@ -10,3 +10,6 @@ services:
 
     RichCongress\WebTestBundle\Tests\Resources\Stubs\:
         resource: '../Stubs'
+
+    RichCongress\WebTestBundle\Tests\Resources\Repository\:
+        resource: '../Repository'

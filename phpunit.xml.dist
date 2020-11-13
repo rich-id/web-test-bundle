@@ -29,6 +29,7 @@
             <exclude>
                 <directory>bin</directory>
                 <directory>DependencyInjection</directory>
+                <directory>Doctrine/Functions</directory>
                 <directory>Resources</directory>
                 <directory>Tests</directory>
                 <directory>var</directory>

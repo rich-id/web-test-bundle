@@ -2,7 +2,7 @@
 
 namespace RichCongress\WebTestBundle\TestCase;
 
-use Doctrine\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectRepository;
 use Psr\Container\ContainerInterface;
 use RichCongress\WebTestBundle\Exception\EntityManagerNotFoundException;
@@ -24,7 +24,10 @@ abstract class TestCase extends \RichCongress\TestTools\TestCase\TestCase
     /** @var WebTestCase */
     private $innerTestCase;
 
-    public function __construct(?string $name = null, array $data = [], $dataName = '')
+    /**
+     * @codeCoverageIgnore
+     */
+    public function __construct(?string $name = null, array $data = [], string $dataName = '')
     {
         $this->innerTestCase = new WebTestCase($name, $data, $dataName);
 
@@ -63,14 +66,14 @@ abstract class TestCase extends \RichCongress\TestTools\TestCase\TestCase
         return $this->getContainer()->get($service);
     }
 
-    protected function getManager(): ObjectManager
+    protected function getManager(): EntityManagerInterface
     {
         try {
-            /** @var ObjectManager $manager */
+            /** @var EntityManagerInterface $manager */
             $manager = $this->getService('doctrine.orm.default_entity_manager');
 
             return $manager;
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             throw new EntityManagerNotFoundException();
         }
     }

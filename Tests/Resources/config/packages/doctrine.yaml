@@ -1,11 +1,37 @@
 doctrine:
+    dbal:
+        default_connection: default
+        connections:
+            default:
+                driver: 'pdo_sqlite'
+                user: 'test'
+                path: '%kernel.cache_dir%/__DBNAME__.db'
+                url: ~
+                memory: false
+            aux:
+                driver: 'pdo_sqlite'
+                user: 'test'
+                path: '%kernel.cache_dir%/aux.db'
+                url: ~
+                memory: false
     orm:
-        auto_generate_proxy_classes: '%kernel.debug%'
-#        entity_managers:
-#            default:
-#                mappings:
-#                    RichCongressUnitBundle:
-#                        type: annotation
-#                        prefix: RichCongress\Bundle\UnitBundle\Tests\Resources\Entity
-#                        dir: '%kernel.root_dir%/../Entity'
-#                        is_bundle: false
+        default_entity_manager: default
+        entity_managers:
+            default:
+                connection: default
+                mappings:
+                    App:
+                        is_bundle: false
+                        type: annotation
+                        dir: '%kernel.project_dir%/Tests/Resources/Entity'
+                        prefix: 'RichCongress\WebTestBundle\Tests\Resources\Entity'
+                        alias: App
+            aux:
+                connection: aux
+                mappings:
+                    App:
+                        is_bundle: false
+                        type: annotation
+                        dir: '%kernel.project_dir%/Tests/Resources/Entity'
+                        prefix: 'RichCongress\WebTestBundle\Tests\Resources\Entity'
+                        alias: App
