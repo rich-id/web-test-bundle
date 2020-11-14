@@ -7,6 +7,7 @@ use Doctrine\Persistence\ObjectRepository;
 use Psr\Container\ContainerInterface;
 use RichCongress\WebTestBundle\Exception\EntityManagerNotFoundException;
 use RichCongress\WebTestBundle\TestCase\Internal\WebTestCase;
+use RichCongress\WebTestBundle\WebTest\Client;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Component\Console\Tester\CommandTester;
@@ -53,13 +54,13 @@ abstract class TestCase extends \RichCongress\TestTools\TestCase\TestCase
         return $this->innerTestCase->getCurrentContainer();
     }
 
-    protected function getClient(): KernelBrowser
+    protected function getClient(): Client
     {
-        return $this->innerTestCase->getCurrentClient();
+        return new Client($this->innerTestCase->getCurrentClient());
     }
 
     /**
-     * @return mixed|object|null
+     * @return object|null
      */
     protected function getService(string $service)
     {

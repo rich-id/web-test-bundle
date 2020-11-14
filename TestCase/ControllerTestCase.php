@@ -4,6 +4,7 @@ namespace RichCongress\WebTestBundle\TestCase;
 
 use RichCongress\WebTestBundle\Exception\CsrfTokenManagerMissingException;
 use RichCongress\WebTestBundle\TestCase\TestTrait\WebTestAssertionsTrait;
+use RichCongress\WebTestBundle\WebTest\Client;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
@@ -55,10 +56,12 @@ abstract class ControllerTestCase extends TestCase
     }
 
     /**
+     * @param KernelBrowser|Client $client
      * @return array<string|int, mixed>
      */
-    protected static function getJsonContent(KernelBrowser $client, bool $assoc = true): array
+    protected static function getJsonContent($client, bool $assoc = true): array
     {
-        return \json_decode($client->getResponse()->getContent(), $assoc, 512, JSON_THROW_ON_ERROR);
+        $kernelBrowser = Client::extractBrowser($client);
+        return \json_decode($kernelBrowser->getResponse()->getContent(), $assoc, 512, JSON_THROW_ON_ERROR);
     }
 }

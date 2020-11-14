@@ -2,7 +2,7 @@
 
 namespace RichCongress\WebTestBundle\TestCase\TestTrait;
 
-use Symfony\Bundle\FrameworkBundle\KernelBrowser;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class WebTestAssertionsTrait
@@ -13,11 +13,8 @@ use Symfony\Bundle\FrameworkBundle\KernelBrowser;
  */
 trait WebTestAssertionsTrait
 {
-    protected static function assertStatusCode(int $expected, KernelBrowser $kernelBrowser): void
+    protected static function assertStatusCode(int $expected, Response $response): void
     {
-        $response = $kernelBrowser->getResponse();
-        $statusCode = $response->getStatusCode();
-
-        self::assertEquals($expected, $statusCode, $response->getContent());
+        self::assertEquals($expected, $response->getStatusCode(), $response->getContent());
     }
 }

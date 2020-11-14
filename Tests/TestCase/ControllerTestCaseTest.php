@@ -86,8 +86,8 @@ final class ControllerTestCaseTest extends ControllerTestCase
     public function testGetJsonContent(): void
     {
         $client = $this->getClient();
-        $client->request('GET', '/not/an/url');
-        self::assertStatusCode(Response::HTTP_NOT_FOUND, $client);
+        $response = $client->request('GET', '/not/an/url');
+        self::assertStatusCode(Response::HTTP_NOT_FOUND, $response);
 
         $this->expectException(\JsonException::class);
         self::getJsonContent($client);
