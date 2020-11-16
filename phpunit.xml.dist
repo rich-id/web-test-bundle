@@ -41,4 +41,11 @@
             <file>TestHook.php</file>
         </exclude>
     </coverage>
+
+    <extensions>
+        <extension class="RichCongress\TestFramework\PHPUnitExtension">
+            <arguments>
+            </arguments>
+        </extension>
+    </extensions>
 </phpunit>

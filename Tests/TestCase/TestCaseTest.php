@@ -3,13 +3,13 @@
 namespace RichCongress\WebTestBundle\Tests\TestCase;
 
 use Doctrine\ORM\EntityManager;
-use RichCongress\TestTools\Helper\ForceExecutionHelper;
+use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
 use RichCongress\WebTestBundle\Exception\EntityManagerNotFoundException;
+use RichCongress\WebTestBundle\Exception\KernelNotInitializedException;
 use RichCongress\WebTestBundle\TestCase\Internal\WebTestCase;
 use RichCongress\WebTestBundle\TestCase\TestCase;
 use RichCongress\WebTestBundle\Tests\Resources\Entity\DummyEntity;
 use RichCongress\WebTestBundle\Tests\Resources\Repository\DummyEntityRepository;
-use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
 /**
  * Class TestCaseTest
@@ -46,6 +46,27 @@ final class TestCaseTest extends TestCase
         parent::tearDown();
     }
 
+    public function testGetContainerWithoutTestConfig(): void
+    {
+        $this->expectException(KernelNotInitializedException::class);
+        $this->getContainer();
+    }
+
+    public function testGetClientWithoutTestConfig(): void
+    {
+        $this->expectException(KernelNotInitializedException::class);
+        $this->getClient();
+    }
+
+    public function testGetManagerWithoutTestConfig(): void
+    {
+        $this->expectException(KernelNotInitializedException::class);
+        $this->getManager();
+    }
+
+    /**
+     * @TestConfig("kernel")
+     */
     public function testGetters(): void
     {
         // Check if no error is thrown
@@ -55,6 +76,9 @@ final class TestCaseTest extends TestCase
         self::assertInstanceOf(DummyEntityRepository::class, $this->getRepository(DummyEntity::class));
     }
 
+    /**
+     * @TestConfig("kernel")
+     */
     public function testGetManagerFailure(): void
     {
         $this->innerTestCaseReflection->setValue($this, null);

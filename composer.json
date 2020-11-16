@@ -29,7 +29,8 @@
         "roave/security-advisories": "dev-master",
         "symfony/form": "^4.0|^5.0",
         "symfony/orm-pack": "^1.0",
-        "symfony/security-bundle": "^4.0|^5.0"
+        "symfony/security-bundle": "^4.0|^5.0",
+        "symfony/yaml": "^5.1"
     },
     "autoload": {
         "psr-4": {

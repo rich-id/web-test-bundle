@@ -6,6 +6,7 @@ use DAMA\DoctrineTestBundle\DAMADoctrineTestBundle;
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Mockery\MockInterface;
+use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
 use RichCongress\WebTestBundle\Kernel\DefaultTestKernel;
 use RichCongress\WebTestBundle\RichCongressWebTestBundle;
 use RichCongress\WebTestBundle\TestCase\TestCase;
@@ -26,6 +27,7 @@ use Symfony\Component\Routing\Loader\GlobFileLoader;
  * @copyright  2014 - 2020 RichCongress (https://www.richcongress.com)
  *
  * @covers \RichCongress\WebTestBundle\Kernel\DefaultTestKernel
+ * @TestConfig("kernel")
  */
 final class DefaultTestKernelTest extends TestCase
 {

@@ -5,11 +5,12 @@ namespace RichCongress\WebTestBundle\TestCase;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectRepository;
 use Psr\Container\ContainerInterface;
+use Psr\Container\ContainerExceptionInterface;
 use RichCongress\WebTestBundle\Exception\EntityManagerNotFoundException;
+use RichCongress\WebTestBundle\Exception\KernelNotInitializedException;
 use RichCongress\WebTestBundle\TestCase\Internal\WebTestCase;
 use RichCongress\WebTestBundle\WebTest\Client;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
-use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\HttpKernel\KernelInterface;
 
@@ -37,25 +38,37 @@ abstract class TestCase extends \RichCongress\TestTools\TestCase\TestCase
 
     public function setUp(): void
     {
-        $this->innerTestCase->setUp();
+        if (WebTestCase::isEnabled()) {
+            $this->innerTestCase->setUp();
+        }
 
         parent::setUp();
     }
 
     public function tearDown(): void
     {
-        $this->innerTestCase->tearDown();
+        if (WebTestCase::isEnabled()) {
+            $this->innerTestCase->tearDown();
+        }
 
         parent::tearDown();
     }
 
     protected function getContainer(): ContainerInterface
     {
+        if (!WebTestCase::isEnabled()) {
+            throw new KernelNotInitializedException();
+        }
+
         return $this->innerTestCase->getCurrentContainer();
     }
 
     protected function getClient(): Client
     {
+        if (!WebTestCase::isEnabled()) {
+            throw new KernelNotInitializedException();
+        }
+
         return new Client($this->innerTestCase->getCurrentClient());
     }
 
@@ -80,6 +93,10 @@ abstract class TestCase extends \RichCongress\TestTools\TestCase\TestCase
 
             return $manager;
         } catch (\Throwable $e) {
+            if ($e instanceof KernelNotInitializedException) {
+                throw $e;
+            }
+
             throw new EntityManagerNotFoundException();
         }
     }

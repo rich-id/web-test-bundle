@@ -18,7 +18,7 @@ final class CsrfTokenManagerMissingException extends \Exception
     protected static $documentation = 'https://github.com/richcongress/web-test-bundle/blob/master/Docs/Exceptions.md#CsrfTokenManagerMissingException';
 
     /**
-     * ContainerNotEnabledException constructor.
+     * CsrfTokenManagerMissingException constructor.
      */
     public function __construct()
     {

@@ -2,6 +2,7 @@
 
 namespace RichCongress\WebTestBundle\TestCase;
 
+use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
 use RichCongress\WebTestBundle\Exception\CsrfTokenManagerMissingException;
 use RichCongress\WebTestBundle\TestCase\TestTrait\WebTestAssertionsTrait;
 use RichCongress\WebTestBundle\WebTest\Client;
@@ -15,6 +16,7 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
  * @package   RichCongress\WebTestBundle\TestCase
  * @author    Nicolas Guilloux <nguilloux@richcongress.com>
  * @copyright 2014 - 2020 RichCongress (https://www.richcongress.com)
+ * @TestConfig("kernel")
  */
 abstract class ControllerTestCase extends TestCase
 {

@@ -4,6 +4,7 @@ namespace RichCongress\WebTestBundle\TestCase\Internal;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Container\ContainerInterface;
+use RichCongress\TestFramework\TestConfiguration\TestConfiguration;
 use RichCongress\WebTestBundle\Doctrine\DatabaseSchemaInitializer;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase as BaseWebTestCase;
@@ -61,5 +62,10 @@ final class WebTestCase extends BaseWebTestCase
     public function getCurrentClient(): KernelBrowser
     {
         return $this->client;
+    }
+
+    public static function isEnabled(): bool
+    {
+        return TestConfiguration::get('kernel') === true || TestConfiguration::get('container') === true;
     }
 }
