@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Psr\Container\ContainerInterface;
 use RichCongress\TestFramework\TestConfiguration\TestConfiguration;
 use RichCongress\WebTestBundle\Doctrine\DatabaseSchemaInitializer;
+use RichCongress\WebTestBundle\Exception\KernelNotInitializedException;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase as BaseWebTestCase;
 
@@ -20,6 +21,8 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase as BaseWebTestCase;
  */
 final class WebTestCase extends BaseWebTestCase
 {
+    public const CONFIG_ENABLE_FLAGS = ['kernel', 'container', 'client'];
+
     /** @var KernelBrowser */
     private $client;
 
@@ -29,6 +32,10 @@ final class WebTestCase extends BaseWebTestCase
     public function setUp(): void
     {
         parent::setUp();
+
+        if (!self::isEnabled()) {
+            return;
+        }
 
         $this->client = self::createClient();
         $container = $this->getCurrentContainer();
@@ -53,6 +60,10 @@ final class WebTestCase extends BaseWebTestCase
      */
     public function getCurrentContainer(): ContainerInterface
     {
+        if (!self::isEnabled()) {
+            throw new KernelNotInitializedException();
+        }
+
         return self::$container;
     }
 
@@ -61,11 +72,21 @@ final class WebTestCase extends BaseWebTestCase
      */
     public function getCurrentClient(): KernelBrowser
     {
+        if (!self::isEnabled()) {
+            throw new KernelNotInitializedException();
+        }
+
         return $this->client;
     }
 
     public static function isEnabled(): bool
     {
-        return TestConfiguration::get('kernel') === true || TestConfiguration::get('container') === true;
+        foreach (self::CONFIG_ENABLE_FLAGS as $flag) {
+            if (TestConfiguration::get($flag) === true) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

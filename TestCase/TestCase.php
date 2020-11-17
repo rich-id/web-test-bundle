@@ -5,7 +5,6 @@ namespace RichCongress\WebTestBundle\TestCase;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectRepository;
 use Psr\Container\ContainerInterface;
-use Psr\Container\ContainerExceptionInterface;
 use RichCongress\WebTestBundle\Exception\EntityManagerNotFoundException;
 use RichCongress\WebTestBundle\Exception\KernelNotInitializedException;
 use RichCongress\WebTestBundle\TestCase\Internal\WebTestCase;
@@ -38,37 +37,25 @@ abstract class TestCase extends \RichCongress\TestTools\TestCase\TestCase
 
     public function setUp(): void
     {
-        if (WebTestCase::isEnabled()) {
-            $this->innerTestCase->setUp();
-        }
+        $this->innerTestCase->setUp();
 
         parent::setUp();
     }
 
     public function tearDown(): void
     {
-        if (WebTestCase::isEnabled()) {
-            $this->innerTestCase->tearDown();
-        }
+        $this->innerTestCase->tearDown();
 
         parent::tearDown();
     }
 
     protected function getContainer(): ContainerInterface
     {
-        if (!WebTestCase::isEnabled()) {
-            throw new KernelNotInitializedException();
-        }
-
         return $this->innerTestCase->getCurrentContainer();
     }
 
     protected function getClient(): Client
     {
-        if (!WebTestCase::isEnabled()) {
-            throw new KernelNotInitializedException();
-        }
-
         return new Client($this->innerTestCase->getCurrentClient());
     }
 
@@ -83,13 +70,9 @@ abstract class TestCase extends \RichCongress\TestTools\TestCase\TestCase
     protected function getManager(string $name = 'default'): EntityManagerInterface
     {
         try {
+            $managerServiceName = sprintf('doctrine.orm.%s_entity_manager', $name);
             /** @var EntityManagerInterface $manager */
-            $manager = $this->getService(
-                sprintf(
-                    'doctrine.orm.%s_entity_manager',
-                    $name
-                )
-            );
+            $manager = $this->getService($managerServiceName);
 
             return $manager;
         } catch (\Throwable $e) {
