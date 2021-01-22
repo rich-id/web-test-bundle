@@ -19,6 +19,7 @@
         "php": ">=7.3",
         "ext-json": "*",
         "dama/doctrine-test-bundle": "^6.3",
+        "php-di/phpdoc-reader": "^2.2",
         "richcongress/bundle-toolbox": "*",
         "richcongress/test-framework": "dev-master",
         "richcongress/test-tools": "dev-master",

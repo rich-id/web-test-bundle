@@ -7,6 +7,7 @@ use Doctrine\Persistence\ObjectRepository;
 use Psr\Container\ContainerInterface;
 use RichCongress\WebTestBundle\Exception\EntityManagerNotFoundException;
 use RichCongress\WebTestBundle\Exception\KernelNotInitializedException;
+use RichCongress\WebTestBundle\ServiceResolver\PublicPropertyServiceResolver;
 use RichCongress\WebTestBundle\TestCase\Internal\WebTestCase;
 use RichCongress\WebTestBundle\WebTest\Client;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
@@ -38,6 +39,10 @@ abstract class TestCase extends \RichCongress\TestTools\TestCase\TestCase
     public function setUp(): void
     {
         $this->innerTestCase->setUp();
+
+        if (WebTestCase::isEnabled()) {
+            PublicPropertyServiceResolver::resolve($this, $this->getContainer());
+        }
 
         parent::setUp();
     }
