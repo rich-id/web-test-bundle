@@ -4,6 +4,7 @@ namespace RichCongress\WebTestBundle\Doctrine;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\SchemaTool;
+use RichCongress\WebTestBundle\Doctrine\Driver\StaticDriver;
 
 /**
  * Class DatabaseSchemaFactory
@@ -25,7 +26,10 @@ final class DatabaseSchemaInitializer
 
         $metadatas = $entityManager->getMetadataFactory()->getAllMetadata();
         $schemaTool = new SchemaTool($entityManager);
-        $schemaTool->createSchema($metadatas);
+        StaticDriver::withoutTransaction(static function () use ($schemaTool, $metadatas) {
+            $schemaTool->dropDatabase();
+            $schemaTool->createSchema($metadatas);
+        });
 
         $key = self::getKey($entityManager);
         self::$initializedEntityManagers[$key] = true;

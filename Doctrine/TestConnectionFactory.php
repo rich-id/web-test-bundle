@@ -2,12 +2,12 @@
 
 namespace RichCongress\WebTestBundle\Doctrine;
 
-use DAMA\DoctrineTestBundle\Doctrine\DBAL\StaticDriver;
 use Doctrine\Bundle\DoctrineBundle\ConnectionFactory;
 use Doctrine\Common\EventManager;
 use Doctrine\DBAL\Configuration;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
+use RichCongress\WebTestBundle\Doctrine\Driver\StaticDriver;
 
 /**
  * Class TestConnectionFactory

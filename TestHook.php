@@ -2,8 +2,8 @@
 
 namespace RichCongress\WebTestBundle;
 
-use DAMA\DoctrineTestBundle\PHPUnit\PHPUnitExtension;
 use RichCongress\TestFramework\TestHook\AbstractTestHook;
+use RichCongress\WebTestBundle\Doctrine\Driver\StaticDriver;
 
 /**
  * Class TestHook
@@ -14,24 +14,6 @@ use RichCongress\TestFramework\TestHook\AbstractTestHook;
  */
 class TestHook extends AbstractTestHook
 {
-    protected $damaPHPUnitExtension;
-
-    /**
-     * TestHook constructor.
-     */
-    public function __construct()
-    {
-        $this->damaPHPUnitExtension = new PHPUnitExtension();
-    }
-
-    /**
-     * @return void
-     */
-    public function executeBeforeFirstTest(): void
-    {
-        $this->damaPHPUnitExtension->executeBeforeFirstTest();
-    }
-
     /**
      * @param string $test
      *
@@ -39,7 +21,7 @@ class TestHook extends AbstractTestHook
      */
     public function executeBeforeTest(string $test): void
     {
-        $this->damaPHPUnitExtension->executeBeforeTest($test);
+        StaticDriver::beginTransaction();
     }
 
     /**
@@ -50,6 +32,6 @@ class TestHook extends AbstractTestHook
      */
     public function executeAfterTest(string $test, float $time): void
     {
-        $this->damaPHPUnitExtension->executeAfterTest($test, $time);
+        StaticDriver::rollBack();
     }
 }
