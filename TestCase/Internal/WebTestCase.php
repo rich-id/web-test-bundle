@@ -21,7 +21,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase as BaseWebTestCase;
  */
 final class WebTestCase extends BaseWebTestCase
 {
-    public const CONFIG_ENABLE_FLAGS = ['kernel', 'container', 'client'];
+    public const CONFIG_ENABLE_FLAGS = ['kernel', 'container', 'client', 'fixtures'];
 
     /** @var KernelBrowser */
     private $client;

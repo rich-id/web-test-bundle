@@ -38,19 +38,17 @@ abstract class TestCase extends \RichCongress\TestTools\TestCase\TestCase
 
     public function setUp(): void
     {
+        parent::setUp();
         $this->innerTestCase->setUp();
 
         if (WebTestCase::isEnabled()) {
             PublicPropertyServiceResolver::resolve($this, $this->getContainer());
         }
-
-        parent::setUp();
     }
 
     public function tearDown(): void
     {
         $this->innerTestCase->tearDown();
-
         parent::tearDown();
     }
 
