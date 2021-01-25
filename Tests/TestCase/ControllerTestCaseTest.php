@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
  * @copyright  2014 - 2020 RichCongress (https://www.richcongress.com)
  *
  * @covers \RichCongress\WebTestBundle\TestCase\ControllerTestCase
+ * @covers \RichCongress\WebTestBundle\TestCase\TestTrait\ControllerTestUtilitiesTrait
  * @covers \RichCongress\WebTestBundle\TestCase\TestTrait\WebTestAssertionsTrait
  */
 final class ControllerTestCaseTest extends ControllerTestCase
