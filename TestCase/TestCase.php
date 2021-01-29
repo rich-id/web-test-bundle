@@ -108,6 +108,8 @@ abstract class TestCase extends \RichCongress\TestTools\TestCase\TestCase
             'decorated'   => false,
         ]);
 
+        var_dump($commandTester->getDisplay());
+
         return $commandTester->getDisplay();
     }
 }

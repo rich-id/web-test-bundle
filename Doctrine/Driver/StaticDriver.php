@@ -41,14 +41,15 @@ class StaticDriver extends \DAMA\DoctrineTestBundle\Doctrine\DBAL\StaticDriver
     {
         $isInTransaction = static::isInTransaction();
 
-        if ($isInTransaction) {
-            static::rollBack();
-        }
-
         $callback();
 
-        if ($isInTransaction) {
-            static::beginTransaction();
+        if (static::isInTransaction()) {
+            try {
+                static::commit();
+                static::beginTransaction();
+            } catch (\Throwable $e) {
+                // Skip
+            }
         }
     }
 }
