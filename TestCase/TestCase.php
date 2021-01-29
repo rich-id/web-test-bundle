@@ -36,9 +36,10 @@ abstract class TestCase extends \RichCongress\TestTools\TestCase\TestCase
         parent::__construct($name, $data, $dataName);
     }
 
-    public function setUp(): void
+    public function setUpTestCase(): void
     {
-        parent::setUp();
+        parent::setUpTestCase();
+
         $this->innerTestCase->setUp();
 
         if (WebTestCase::isEnabled()) {
@@ -46,10 +47,10 @@ abstract class TestCase extends \RichCongress\TestTools\TestCase\TestCase
         }
     }
 
-    public function tearDown(): void
+    public function tearDownTestCase(): void
     {
         $this->innerTestCase->tearDown();
-        parent::tearDown();
+        parent::tearDownTestCase();
     }
 
     protected function getContainer(): ContainerInterface
