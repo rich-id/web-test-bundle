@@ -29,7 +29,7 @@ abstract class TestCase extends \RichCongress\TestTools\TestCase\TestCase
     /**
      * @codeCoverageIgnore
      */
-    public function __construct(?string $name = null, array $data = [], string $dataName = '')
+    public function __construct(?string $name = null, array $data = [], $dataName = '')
     {
         $this->innerTestCase = new WebTestCase($name, $data, $dataName);
 
