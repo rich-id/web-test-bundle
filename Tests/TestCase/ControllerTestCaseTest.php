@@ -48,19 +48,19 @@ final class ControllerTestCaseTest extends ControllerTestCase
     public function testGetCsrfToken(): void
     {
         $csrfToken = $this->getCsrfToken('test');
-        self::assertMatchesRegularExpression('/^[\w-]{43}$/', $csrfToken);
+        self::assertMatchesRegularExpression('/^[a-zA-Z0-9\-\_\.]*$/', $csrfToken);
     }
 
     public function testGetCsrfTokenFromClass(): void
     {
         $csrfToken = $this->getCsrfToken(DummyFormType::class);
-        self::assertMatchesRegularExpression('/^[\w-]{43}$/', $csrfToken);
+        self::assertMatchesRegularExpression('/^[a-zA-Z0-9\-\_\.]*$/', $csrfToken);
     }
 
     public function testGetCsrfTokenFromService(): void
     {
         $csrfToken = $this->getCsrfToken('test.dummy_form_type');
-        self::assertMatchesRegularExpression('/^[\w-]{43}$/', $csrfToken);
+        self::assertMatchesRegularExpression('/^[a-zA-Z0-9\-\_\.]*$/', $csrfToken);
     }
 
     public function testMissingCsrfTokenManager(): void
