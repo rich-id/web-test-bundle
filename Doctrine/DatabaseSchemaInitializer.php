@@ -33,7 +33,6 @@ final class DatabaseSchemaInitializer
 
         $key = self::getKey($entityManager);
         self::$initializedEntityManagers[$key] = true;
-
     }
 
     public static function isInitialized(EntityManagerInterface $entityManager): bool

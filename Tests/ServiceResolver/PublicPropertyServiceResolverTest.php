@@ -21,6 +21,8 @@ use RichCongress\WebTestBundle\Tests\Resources\Stubs\DummyCommandStub;
  */
 final class PublicPropertyServiceResolverTest extends TestCase
 {
+    public DummyCommandStub $knownServiceWithType;
+
     /** @var DummyCommandStub */
     public $knownService;
 
@@ -41,6 +43,7 @@ final class PublicPropertyServiceResolverTest extends TestCase
     public function testAutowiring(): void
     {
         self::assertInstanceOf(DummyCommandStub::class, $this->knownService);
+        self::assertInstanceOf(DummyCommandStub::class, $this->knownServiceWithType);
         self::assertFalse($this->alreadyInitializedProperty);
         self::assertInstanceOf(DummyEntityRepository::class, self::$staticProperty);
         self::assertNull($this->protectedProperty);

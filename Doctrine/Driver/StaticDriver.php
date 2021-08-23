@@ -2,6 +2,8 @@
 
 namespace RichCongress\WebTestBundle\Doctrine\Driver;
 
+use Doctrine\DBAL\Connection;
+
 /**
  * Class StaticDriver
  *
@@ -39,8 +41,6 @@ class StaticDriver extends \DAMA\DoctrineTestBundle\Doctrine\DBAL\StaticDriver
 
     public static function withoutTransaction(callable $callback): void
     {
-        $isInTransaction = static::isInTransaction();
-
         $callback();
 
         if (static::isInTransaction()) {
@@ -51,5 +51,15 @@ class StaticDriver extends \DAMA\DoctrineTestBundle\Doctrine\DBAL\StaticDriver
                 // Skip
             }
         }
+    }
+
+    public function getName(): string
+    {
+        return 'Static driver';
+    }
+
+    public function getDatabase(Connection $conn): ?string
+    {
+        return $conn->getDatabase();
     }
 }

@@ -24,20 +24,42 @@ final class PublicPropertyServiceResolver
     {
         $reflectionClass = new \ReflectionClass($instance);
         $publicProperties = $reflectionClass->getProperties(\ReflectionProperty::IS_PUBLIC);
-        $reader = self::getDocReader();
 
         foreach ($publicProperties as $property) {
-            if ($property->getValue($instance) !== null) {
+            if (self::getReflectionType($property) !== null) {
+                if (method_exists($property, 'isInitialized') && $property->isInitialized($instance)) {
+                    continue;
+                }
+            } elseif ($property->getValue($instance) !== null) {
                 continue;
             }
 
-            $serviceName = $reader->getPropertyType($property) ?? $reader->getPropertyClass($property);
+            $serviceName = self::resolveType($property);
 
             if ($container->has($serviceName)) {
                 $service = $container->get($serviceName);
                 $property->setValue($instance, $service);
             }
         }
+    }
+
+    protected static function resolveType(\ReflectionProperty $reflectionProperty): ?string
+    {
+        $reflectionType = self::getReflectionType($reflectionProperty);
+        $type = $reflectionType ? $reflectionType->getName() : null;
+
+        if ($type !== null) {
+            return $type;
+        }
+
+        $reader = self::getDocReader();
+
+        return $reader->getPropertyType($reflectionProperty) ?? $reader->getPropertyClass($reflectionProperty);
+    }
+
+    protected static function getReflectionType(\ReflectionProperty $reflectionProperty): ?\ReflectionType
+    {
+        return method_exists($reflectionProperty, 'getType') ? $reflectionProperty->getType() : null;
     }
 
     /** @codeCoverageIgnore  */
