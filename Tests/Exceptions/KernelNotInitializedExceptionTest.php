@@ -13,6 +13,7 @@ use RichCongress\WebTestBundle\TestCase\TestCase;
  * @copyright  2014 - 2020 RichCongress (https://www.richcongress.com)
  *
  * @covers \RichCongress\WebTestBundle\Exception\KernelNotInitializedException
+ * @covers \RichCongress\WebTestBundle\Exception\AbstractException
  */
 final class KernelNotInitializedExceptionTest extends TestCase
 {
