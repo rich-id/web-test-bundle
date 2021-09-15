@@ -2,6 +2,7 @@
 
 namespace RichCongress\WebTestBundle\Tests\WebTest;
 
+use RichCongress\WebTestBundle\Exception\JsonRequestWithContentException;
 use RichCongress\WebTestBundle\TestCase\ControllerTestCase;
 use RichCongress\WebTestBundle\WebTest\Client;
 use RichCongress\WebTestBundle\WebTest\Response;
@@ -70,5 +71,21 @@ final class ClientTest extends ControllerTestCase
         $this->expectErrorMessage('Please give either a Client or a KernelBrowser.');
 
         Client::extractBrowser(null);
+    }
+
+    public function testJsonRequestWithContent(): void
+    {
+        $client = $this->getClient();
+
+        $this->expectException(JsonRequestWithContentException::class);
+        $client->request('POST', '/test', ['test' => true], [], [], 'test');
+    }
+
+    public function testnotJsonRequestWithContent(): void
+    {
+        $client = $this->getClient();
+        $response = $client->request('POST', '/test', ['test' => true], [], [], 'test', true, false);
+
+        self::assertStatusCode(Response::HTTP_NOT_FOUND, $response);
     }
 }

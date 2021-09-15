@@ -13,6 +13,7 @@ use RichCongress\WebTestBundle\TestCase\TestCase;
  * @copyright  2014 - 2020 RichCongress (https://www.richcongress.com)
  *
  * @covers \RichCongress\WebTestBundle\Exception\CsrfTokenManagerMissingException
+ * @covers \RichCongress\WebTestBundle\Exception\AbstractException
  */
 final class CsrfTokenManagerMissingExceptionTest extends TestCase
 {

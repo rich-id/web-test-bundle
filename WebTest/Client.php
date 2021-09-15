@@ -3,6 +3,7 @@
 namespace RichCongress\WebTestBundle\WebTest;
 
 use Psr\Container\ContainerInterface;
+use RichCongress\WebTestBundle\Exception\JsonRequestWithContentException;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Component\BrowserKit\Request;
 use Symfony\Component\DomCrawler\Crawler;
@@ -36,8 +37,20 @@ final class Client
         array $files = [],
         array $server = [],
         string $content = null,
-        bool $changeHistory = true
+        bool $changeHistory = true,
+        bool $isJson = true
     ): Response {
+        if ($isJson) {
+            if ($content !== null) {
+                JsonRequestWithContentException::throw();
+            }
+
+            $content = json_encode($parameters, JSON_THROW_ON_ERROR);
+            $parameters = [];
+            $server['CONTENT_TYPE'] = 'application/json';
+            $server['HTTP_ACCEPT'] = 'application/json';
+        }
+
         $this->browser->request(
             $method,
             $uri,
@@ -58,7 +71,8 @@ final class Client
         array $files = [],
         array $server = [],
         string $content = null,
-        bool $changeHistory = true
+        bool $changeHistory = true,
+        bool $isJson = true
     ): Response {
         return $this->request(
             'GET',
@@ -67,7 +81,8 @@ final class Client
             $files,
             $server,
             $content,
-            $changeHistory
+            $changeHistory,
+            $isJson
         );
     }
 
@@ -78,7 +93,8 @@ final class Client
         array $files = [],
         array $server = [],
         string $content = null,
-        bool $changeHistory = true
+        bool $changeHistory = true,
+        bool $isJson = true
     ): Response {
         return $this->request(
             'POST',
@@ -87,7 +103,8 @@ final class Client
             $files,
             $server,
             $content,
-            $changeHistory
+            $changeHistory,
+            $isJson
         );
     }
 
@@ -98,7 +115,8 @@ final class Client
         array $files = [],
         array $server = [],
         string $content = null,
-        bool $changeHistory = true
+        bool $changeHistory = true,
+        bool $isJson = true
     ): Response {
         return $this->request(
             'PUT',
@@ -107,7 +125,8 @@ final class Client
             $files,
             $server,
             $content,
-            $changeHistory
+            $changeHistory,
+            $isJson
         );
     }
 
@@ -118,7 +137,8 @@ final class Client
         array $files = [],
         array $server = [],
         string $content = null,
-        bool $changeHistory = true
+        bool $changeHistory = true,
+        bool $isJson = true
     ): Response {
         return $this->request(
             'PATCH',
@@ -127,7 +147,8 @@ final class Client
             $files,
             $server,
             $content,
-            $changeHistory
+            $changeHistory,
+            $isJson
         );
     }
 
@@ -138,7 +159,8 @@ final class Client
         array $files = [],
         array $server = [],
         string $content = null,
-        bool $changeHistory = true
+        bool $changeHistory = true,
+        bool $isJson = true
     ): Response {
         return $this->request(
             'DELETE',
@@ -147,7 +169,8 @@ final class Client
             $files,
             $server,
             $content,
-            $changeHistory
+            $changeHistory,
+            $isJson
         );
     }
 
