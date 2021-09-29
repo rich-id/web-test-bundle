@@ -28,7 +28,7 @@ class Response extends SymfonyResponse
         }
     }
 
-    public function getJsonContent(bool $assoc = true): array
+    public function getJsonContent(bool $assoc = true)
     {
         return \json_decode(
             $this->getContent(),
