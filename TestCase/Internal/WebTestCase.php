@@ -64,7 +64,7 @@ final class WebTestCase extends BaseWebTestCase
             throw new KernelNotInitializedException();
         }
 
-        return self::$container;
+        return self::getContainer();
     }
 
     /**
