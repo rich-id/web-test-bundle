@@ -6,7 +6,7 @@ use DAMA\DoctrineTestBundle\DAMADoctrineTestBundle;
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Mockery\MockInterface;
-use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
+use RichCongress\TestFramework\TestConfiguration\Attribute\TestConfig;
 use RichCongress\WebTestBundle\Kernel\DefaultTestKernel;
 use RichCongress\WebTestBundle\RichCongressWebTestBundle;
 use RichCongress\WebTestBundle\TestCase\TestCase;
@@ -17,7 +17,9 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 use Symfony\Component\Routing\Loader\GlobFileLoader;
+use Symfony\Component\Routing\RouteCollection;
 
 /**
  * Class DefaultTestKernelTest
@@ -27,8 +29,8 @@ use Symfony\Component\Routing\Loader\GlobFileLoader;
  * @copyright  2014 - 2020 RichCongress (https://www.richcongress.com)
  *
  * @covers \RichCongress\WebTestBundle\Kernel\DefaultTestKernel
- * @TestConfig("kernel")
  */
+#[TestConfig('kernel')]
 final class DefaultTestKernelTest extends TestCase
 {
     use MockeryPHPUnitIntegration;
@@ -69,7 +71,7 @@ final class DefaultTestKernelTest extends TestCase
     public function testRegisterBundlesWithoutConfigPath(): void
     {
         $kernel = new DefaultTestKernel('inner_test', false);
-        $bundles = $kernel->registerBundles();
+        $bundles = \iterator_to_array($kernel->registerBundles());
 
         self::assertCount(4, $bundles);
     }
@@ -77,7 +79,7 @@ final class DefaultTestKernelTest extends TestCase
     public function testRegisterBundlesWithConfigPath(): void
     {
         $kernel = new TestKernel();
-        $bundles = $kernel->registerBundles();
+        $bundles = \iterator_to_array($kernel->registerBundles());
 
         self::assertCount(5, $bundles);
     }
@@ -94,18 +96,18 @@ final class DefaultTestKernelTest extends TestCase
 
     public function testLoadRoutesWithoutConfigPath(): void
     {
-        $loader = new GlobFileLoader(new FileLocator());
         $kernel = new DefaultTestKernel('inner_test', false);
-        $routeCollection = $kernel->loadRoutes($loader);
+        $kernel->boot();
+        $routeCollection = $kernel->getContainer()->get('router')->getRouteCollection();
 
         self::assertEmpty($routeCollection);
     }
 
     public function testLoadRoutes(): void
     {
-        $loader = new GlobFileLoader(new FileLocator());
         $kernel = new TestKernel();
-        $routeCollection = $kernel->loadRoutes($loader);
+        $kernel->boot();
+        $routeCollection = $kernel->getContainer()->get('router')->getRouteCollection();
 
         self::assertEmpty($routeCollection);
     }

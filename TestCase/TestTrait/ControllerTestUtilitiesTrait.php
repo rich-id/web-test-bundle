@@ -5,7 +5,12 @@ namespace RichCongress\WebTestBundle\TestCase\TestTrait;
 use RichCongress\WebTestBundle\Exception\CsrfTokenManagerMissingException;
 use RichCongress\WebTestBundle\WebTest\Client;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
+use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\Form\FormTypeInterface;
+use Symfony\Component\HttpFoundation\Exception\SessionNotFoundException;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Session\SessionFactoryInterface;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 /**
@@ -17,6 +22,8 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
  */
 trait ControllerTestUtilitiesTrait
 {
+    use WithSessionTrait;
+
     /**
      * Get the CSRF token from the Type and the Client
      */
@@ -41,7 +48,9 @@ trait ControllerTestUtilitiesTrait
             $intention = $class->getBlockPrefix() ?? $intention;
         }
 
-        return (string) $csrfTokenManager->getToken($intention);
+        return $this->withSession($this->getClient(),
+            fn ($session) => (string) $csrfTokenManager->getToken($intention)
+        );
     }
 
     /**

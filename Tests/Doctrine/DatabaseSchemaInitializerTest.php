@@ -2,7 +2,7 @@
 
 namespace RichCongress\WebTestBundle\Tests\Doctrine;
 
-use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
+use RichCongress\TestFramework\TestConfiguration\Attribute\TestConfig;
 use RichCongress\WebTestBundle\Doctrine\DatabaseSchemaInitializer;
 use RichCongress\WebTestBundle\TestCase\TestCase;
 
@@ -14,8 +14,8 @@ use RichCongress\WebTestBundle\TestCase\TestCase;
  * @copyright  2014 - 2020 RichCongress (https://www.richcongress.com)
  *
  * @covers \RichCongress\WebTestBundle\Doctrine\DatabaseSchemaInitializer
- * @TestConfig("kernel")
  */
+#[TestConfig('kernel')]
 final class DatabaseSchemaInitializerTest extends TestCase
 {
     public function testIsAlreadyInitialized(): void

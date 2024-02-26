@@ -68,7 +68,7 @@ final class ClientTest extends ControllerTestCase
     public function testExtractBrowserWithNoBrowser(): void
     {
         $this->expectException(\LogicException::class);
-        $this->expectErrorMessage('Please give either a Client or a KernelBrowser.');
+        $this->expectExceptionMessage('Please give either a Client or a KernelBrowser.');
 
         Client::extractBrowser(null);
     }

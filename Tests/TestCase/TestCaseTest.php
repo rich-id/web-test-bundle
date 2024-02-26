@@ -3,7 +3,7 @@
 namespace RichCongress\WebTestBundle\Tests\TestCase;
 
 use Doctrine\ORM\EntityManager;
-use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
+use RichCongress\TestFramework\TestConfiguration\Attribute\TestConfig;
 use RichCongress\WebTestBundle\Exception\EntityManagerNotFoundException;
 use RichCongress\WebTestBundle\Exception\KernelNotInitializedException;
 use RichCongress\WebTestBundle\TestCase\Internal\WebTestCase;
@@ -64,9 +64,7 @@ final class TestCaseTest extends TestCase
         $this->getManager();
     }
 
-    /**
-     * @TestConfig("kernel")
-     */
+    #[TestConfig('kernel')]
     public function testGetters(): void
     {
         // Check if no error is thrown
@@ -76,15 +74,13 @@ final class TestCaseTest extends TestCase
         self::assertInstanceOf(DummyEntityRepository::class, $this->getRepository(DummyEntity::class));
     }
 
-    /**
-     * @TestConfig("kernel")
-     */
+    #[TestConfig('kernel')]
     public function testGetManagerFailure(): void
     {
         $this->innerTestCaseReflection->setValue($this, null);
 
         $this->expectException(EntityManagerNotFoundException::class);
-        $this->expectErrorMessage('The Entity manager cannot be found. Check your Doctrine documentation.');
+        $this->expectExceptionMessage('The Entity manager cannot be found. Check your Doctrine documentation.');
 
         $this->getManager();
     }

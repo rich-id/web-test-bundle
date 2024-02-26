@@ -2,7 +2,7 @@
 
 namespace RichCongress\WebTestBundle\Tests\Command;
 
-use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
+use RichCongress\TestFramework\TestConfiguration\Attribute\TestConfig;
 use RichCongress\WebTestBundle\Command\DebugOverridenServicesCommand;
 use RichCongress\WebTestBundle\TestCase\TestCase;
 use RichCongress\WebTestBundle\Tests\Resources\Stubs\DummyCommandStub;
@@ -16,8 +16,8 @@ use RichCongress\WebTestBundle\Tests\Resources\Stubs\DummyCommandStub;
  *
  * @covers \RichCongress\WebTestBundle\Command\DebugOverridenServicesCommand
  * @covers \RichCongress\WebTestBundle\TestCase\TestCase
- * @TestConfig("kernel")
  */
+#[TestConfig('kernel')]
 final class DebugOverridenServicesCommandTest extends TestCase
 {
     public function testExecute(): void

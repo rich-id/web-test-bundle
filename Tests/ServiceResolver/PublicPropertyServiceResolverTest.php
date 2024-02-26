@@ -3,7 +3,7 @@
 namespace RichCongress\WebTestBundle\Tests\ServiceResolver;
 
 use PhpDocReader\PhpDocReader;
-use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
+use RichCongress\TestFramework\TestConfiguration\Attribute\TestConfig;
 use RichCongress\WebTestBundle\ServiceResolver\PublicPropertyServiceResolver;
 use RichCongress\WebTestBundle\TestCase\TestCase;
 use RichCongress\WebTestBundle\Tests\Resources\Repository\DummyEntityRepository;
@@ -17,8 +17,8 @@ use RichCongress\WebTestBundle\Tests\Resources\Stubs\DummyCommandStub;
  * @copyright  2014 - 2021 RichCongress (https://www.richcongress.com)
  *
  * @covers \RichCongress\WebTestBundle\ServiceResolver\PublicPropertyServiceResolver
- * @TestConfig("kernel")
  */
+#[TestConfig('kernel')]
 final class PublicPropertyServiceResolverTest extends TestCase
 {
     public DummyCommandStub $knownServiceWithType;

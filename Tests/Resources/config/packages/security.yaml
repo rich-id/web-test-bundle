@@ -1,5 +1,5 @@
 security:
-    encoders:
+    password_hashers:
         RichCongress\Bundle\UnitBundle\Tests\Resources\Entity\User: bcrypt
     providers:
         users:

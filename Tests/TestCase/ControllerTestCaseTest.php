@@ -7,6 +7,8 @@ use RichCongress\WebTestBundle\TestCase\ControllerTestCase;
 use RichCongress\WebTestBundle\TestCase\Internal\WebTestCase;
 use RichCongress\WebTestBundle\TestCase\TestCase;
 use RichCongress\WebTestBundle\Tests\Resources\FormType\DummyFormType;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -66,7 +68,7 @@ final class ControllerTestCaseTest extends ControllerTestCase
     public function testMissingCsrfTokenManager(): void
     {
         $this->expectException(CsrfTokenManagerMissingException::class);
-        $this->expectErrorMessage('test');
+        $this->expectExceptionMessage('test');
 
         $this->innerTestCaseReflection->setValue($this, null);
         $this->getCsrfToken('test');

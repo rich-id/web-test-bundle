@@ -3,6 +3,7 @@
 namespace RichCongress\WebTestBundle\Tests\Resources\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use RichCongress\WebTestBundle\Tests\Resources\Repository\DummyEntityRepository;
 
 /**
  * Class DummyEntity
@@ -10,17 +11,12 @@ use Doctrine\ORM\Mapping as ORM;
  * @package    RichCongress\WebTestBundle\Tests\Resources\Entity
  * @author     Nicolas Guilloux <nguilloux@richcongress.com>
  * @copyright  2014 - 2020 RichCongress (https://www.richcongress.com)
- *
- * @ORM\Entity(repositoryClass="RichCongress\WebTestBundle\Tests\Resources\Repository\DummyEntityRepository")
  */
+#[ORM\Entity(repositoryClass: DummyEntityRepository::class)]
 class DummyEntity
 {
-    /**
-     * @var integer
-     *
-     * @ORM\Id
-     * @ORM\Column(type="integer", name="id", options={"unsigned":true})
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    protected $id;
+    #[ORM\Id]
+    #[ORM\Column(name: 'id', type: 'integer', options: ['unsigned' => true])]
+    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    protected int $id;
 }

@@ -8,12 +8,14 @@ doctrine:
                 path: '%kernel.cache_dir%/__DBNAME__.db'
                 url: ~
                 memory: false
+                use_savepoints: true
             aux:
                 driver: 'pdo_sqlite'
                 user: 'test'
                 path: '%kernel.cache_dir%/aux.db'
                 url: ~
                 memory: false
+                use_savepoints: true
     orm:
         default_entity_manager: default
         entity_managers:
@@ -22,7 +24,7 @@ doctrine:
                 mappings:
                     App:
                         is_bundle: false
-                        type: annotation
+                        type: attribute
                         dir: '%kernel.project_dir%/Tests/Resources/Entity'
                         prefix: 'RichCongress\WebTestBundle\Tests\Resources\Entity'
                         alias: App
@@ -31,7 +33,7 @@ doctrine:
                 mappings:
                     App:
                         is_bundle: false
-                        type: annotation
+                        type: attribute
                         dir: '%kernel.project_dir%/Tests/Resources/Entity'
                         prefix: 'RichCongress\WebTestBundle\Tests\Resources\Entity'
                         alias: App

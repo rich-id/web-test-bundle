@@ -2,7 +2,7 @@
 
 namespace RichCongress\WebTestBundle\Tests\OverrideService;
 
-use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
+use RichCongress\TestFramework\TestConfiguration\Attribute\TestConfig;
 use RichCongress\WebTestBundle\Command\DebugOverridenServicesCommand;
 use RichCongress\WebTestBundle\TestCase\TestCase;
 use RichCongress\WebTestBundle\Tests\Resources\Stubs\DummyCommandStub;
@@ -16,8 +16,8 @@ use RichCongress\WebTestBundle\Tests\Resources\Stubs\DummyCommandStub;
  *
  * @covers \RichCongress\WebTestBundle\OverrideService\AbstractOverrideService
  * @covers \RichCongress\WebTestBundle\OverrideService\OverrideServiceTrait
- * @TestConfig("kernel")
  */
+#[TestConfig('kernel')]
 final class AbstractOverrideServiceTest extends TestCase
 {
     public function testGetOverridenServiceNames(): void

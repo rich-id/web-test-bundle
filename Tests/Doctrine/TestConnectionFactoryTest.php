@@ -76,6 +76,8 @@ final class TestConnectionFactoryTest extends MockeryTestCase
             'path'   => '/',
             'dbname' => 'dbName',
         ]);
+
+        \Mockery::close();
     }
 
     public function testWithDbNameInPath(): void
@@ -96,5 +98,7 @@ final class TestConnectionFactoryTest extends MockeryTestCase
         $this->factory->createConnection([
             'path'   => '/__DBNAME__',
         ]);
+
+        \Mockery::close();
     }
 }

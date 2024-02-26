@@ -2,7 +2,7 @@
 
 namespace RichCongress\WebTestBundle\TestCase;
 
-use RichCongress\TestFramework\TestConfiguration\Annotation\TestConfig;
+use RichCongress\TestFramework\TestConfiguration\Attribute\TestConfig;
 use RichCongress\WebTestBundle\TestCase\TestTrait\ControllerTestUtilitiesTrait;
 use RichCongress\WebTestBundle\TestCase\TestTrait\WebTestAssertionsTrait;
 
@@ -12,8 +12,8 @@ use RichCongress\WebTestBundle\TestCase\TestTrait\WebTestAssertionsTrait;
  * @package   RichCongress\WebTestBundle\TestCase
  * @author    Nicolas Guilloux <nguilloux@richcongress.com>
  * @copyright 2014 - 2020 RichCongress (https://www.richcongress.com)
- * @TestConfig("kernel")
  */
+#[TestConfig('kernel')]
 abstract class ControllerTestCase extends TestCase
 {
     use WebTestAssertionsTrait;
