@@ -29,27 +29,25 @@ class StaticDriver extends \DAMA\DoctrineTestBundle\Doctrine\DBAL\StaticDriver
 
     public static function rollBack(): void
     {
-        parent::rollBack();
         static::$isInTransaction = false;
+        parent::rollBack();
     }
 
     public static function commit(): void
     {
-        parent::commit();
         static::$isInTransaction = false;
+        parent::commit();
     }
 
-    public static function withoutTransaction(callable $callback): void
+    public static function forceCommit(): void
     {
-        $callback();
-
         if (static::isInTransaction()) {
             try {
                 static::commit();
-                static::beginTransaction();
             } catch (\Throwable $e) {
-                // Skip
+                // Ignore error because transaction could be already implicitly commited in case of schema changes
             }
+            static::beginTransaction();
         }
     }
 

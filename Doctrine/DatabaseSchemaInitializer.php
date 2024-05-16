@@ -26,10 +26,10 @@ final class DatabaseSchemaInitializer
 
         $metadatas = $entityManager->getMetadataFactory()->getAllMetadata();
         $schemaTool = new SchemaTool($entityManager);
-        StaticDriver::withoutTransaction(static function () use ($schemaTool, $metadatas) {
-            $schemaTool->dropDatabase();
-            $schemaTool->createSchema($metadatas);
-        });
+
+        $schemaTool->dropDatabase();
+        $schemaTool->createSchema($metadatas);
+        StaticDriver::forceCommit();
 
         $key = self::getKey($entityManager);
         self::$initializedEntityManagers[$key] = true;
