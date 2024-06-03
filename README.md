@@ -1,7 +1,7 @@
 The RichCongress Web Test Bundle
 =======================================
 
-This version of the bundle requires Symfony 3.4+ and PHP 7.3+.
+This version of the bundle requires Symfony 6.0+ and PHP 8.1+.
 
 [![Package version](https://img.shields.io/packagist/v/richcongress/web-test-bundle)](https://packagist.org/packages/richcongress/web-test-bundle)
 [![Actions Status](https://github.com/richcongress/web-test-bundle/workflows/Tests/badge.svg)](https://github.com/t/richcongress/web-test-bundle/actions)
@@ -29,7 +29,7 @@ Quick showcase
 
 # 1. Installation
 
-This version of the bundle requires Symfony 3.4+ and PHP 7.3+.
+This version of the bundle requires Symfony 6.0+ and PHP 8.1+.
 
 ```bash
 composer require richcongress/web-test-bundle
