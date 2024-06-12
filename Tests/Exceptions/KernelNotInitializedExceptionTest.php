@@ -22,7 +22,7 @@ final class KernelNotInitializedExceptionTest extends TestCase
         $exception = new KernelNotInitializedException();
 
         self::assertStringContainsString(
-            'The kernel was not initialized. Did you add the annotation `@TestConfig("kernel")` to your method or class?',
+            "The kernel was not initialized. Did you add the attribute `#[TestConfig('kernel')]` to your method or class?",
             $exception->getMessage()
         );
     }

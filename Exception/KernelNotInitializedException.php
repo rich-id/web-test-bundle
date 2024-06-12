@@ -12,5 +12,5 @@ namespace RichCongress\WebTestBundle\Exception;
 final class KernelNotInitializedException extends AbstractException
 {
     /** @var string  */
-    protected static $error = 'The kernel was not initialized. Did you add the annotation `@TestConfig("kernel")` to your method or class?';
+    protected static $error = "The kernel was not initialized. Did you add the attribute `#[TestConfig('kernel')]` to your method or class?";
 }
