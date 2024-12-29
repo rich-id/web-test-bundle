@@ -81,7 +81,7 @@ final class ClientTest extends ControllerTestCase
         $client->request('POST', '/test', ['test' => true], [], [], 'test');
     }
 
-    public function testnotJsonRequestWithContent(): void
+    public function testNotJsonRequestWithContent(): void
     {
         $client = $this->getClient();
         $response = $client->request('POST', '/test', ['test' => true], [], [], 'test', true, false);

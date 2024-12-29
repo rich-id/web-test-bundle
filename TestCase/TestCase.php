@@ -29,11 +29,11 @@ abstract class TestCase extends \RichCongress\TestTools\TestCase\TestCase
     /**
      * @codeCoverageIgnore
      */
-    public function __construct(?string $name = null, array $data = [], $dataName = '')
+    public function __construct(?string $name = null)
     {
-        $this->innerTestCase = new WebTestCase($name, $data, $dataName);
+        $this->innerTestCase = new WebTestCase($name);
 
-        parent::__construct($name, $data, $dataName);
+        parent::__construct($name);
     }
 
     public function setUpTestCase(): void
@@ -107,7 +107,7 @@ abstract class TestCase extends \RichCongress\TestTools\TestCase\TestCase
             'interactive' => false,
             'decorated'   => false,
         ]);
-        
+
         return $commandTester->getDisplay();
     }
 }
