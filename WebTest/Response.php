@@ -16,7 +16,7 @@ class Response extends SymfonyResponse
     public function __construct(SymfonyResponse $response)
     {
         parent::__construct(
-            $response->content,
+            $response->getContent() ?: null,
             $response->getStatusCode(),
             $response->headers->all()
         );
