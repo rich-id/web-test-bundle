@@ -23,23 +23,13 @@ use Symfony\Component\HttpKernel\KernelInterface;
  */
 abstract class TestCase extends \RichCongress\TestTools\TestCase\TestCase
 {
-    /** @var WebTestCase */
-    private $innerTestCase;
-
-    /**
-     * @codeCoverageIgnore
-     */
-    public function __construct(?string $name = null)
-    {
-        $this->innerTestCase = new WebTestCase($name);
-
-        parent::__construct($name);
-    }
+    private ?WebTestCase $innerTestCase = null;
 
     public function setUpTestCase(): void
     {
         parent::setUpTestCase();
 
+        $this->innerTestCase = $this->innerTestCase ?? new WebTestCase();
         $this->innerTestCase->setUp();
 
         if (WebTestCase::isEnabled()) {
@@ -63,10 +53,7 @@ abstract class TestCase extends \RichCongress\TestTools\TestCase\TestCase
         return new Client($this->innerTestCase->getCurrentClient());
     }
 
-    /**
-     * @return object|null
-     */
-    protected function getService(string $service)
+    protected function getService(string $service): ?object
     {
         return $this->getContainer()->get($service);
     }
