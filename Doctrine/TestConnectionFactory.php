@@ -46,7 +46,7 @@ class TestConnectionFactory extends ConnectionFactory
      * @return Connection
      * @throws DBALException
      */
-    public function createConnection(array $params, Configuration $config = null, EventManager $eventManager = null, array $mappingTypes = []): Connection
+    public function createConnection(array $params, ?Configuration $config = null, ?EventManager $eventManager = null, array $mappingTypes = []): Connection
     {
         $parameters = $this->processParameters($params);
 

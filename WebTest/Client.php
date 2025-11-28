@@ -36,7 +36,7 @@ final class Client
         array $parameters = [],
         array $files = [],
         array $server = [],
-        string $content = null,
+        ?string $content = null,
         bool $changeHistory = true,
         bool $isJson = true
     ): Response {
@@ -70,7 +70,7 @@ final class Client
         array $parameters = [],
         array $files = [],
         array $server = [],
-        string $content = null,
+        ?string $content = null,
         bool $changeHistory = true,
         bool $isJson = true
     ): Response {
@@ -92,7 +92,7 @@ final class Client
         array $parameters = [],
         array $files = [],
         array $server = [],
-        string $content = null,
+        ?string $content = null,
         bool $changeHistory = true,
         bool $isJson = true
     ): Response {
@@ -114,7 +114,7 @@ final class Client
         array $parameters = [],
         array $files = [],
         array $server = [],
-        string $content = null,
+        ?string $content = null,
         bool $changeHistory = true,
         bool $isJson = true
     ): Response {
@@ -136,7 +136,7 @@ final class Client
         array $parameters = [],
         array $files = [],
         array $server = [],
-        string $content = null,
+        ?string $content = null,
         bool $changeHistory = true,
         bool $isJson = true
     ): Response {
@@ -158,7 +158,7 @@ final class Client
         array $parameters = [],
         array $files = [],
         array $server = [],
-        string $content = null,
+        ?string $content = null,
         bool $changeHistory = true,
         bool $isJson = true
     ): Response {
