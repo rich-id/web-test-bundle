@@ -34,14 +34,12 @@ final class TestCaseTest extends TestCase
         parent::setUp();
 
         $this->innerTestCaseReflection = new \ReflectionProperty(TestCase::class, 'innerTestCase');
-        $this->innerTestCaseReflection->setAccessible(true);
         $this->innerTestCaseBackup = $this->innerTestCaseReflection->getValue($this);
     }
 
     public function tearDown(): void
     {
         $this->innerTestCaseReflection->setValue($this, $this->innerTestCaseBackup);
-        $this->innerTestCaseReflection->setAccessible(false);
 
         parent::tearDown();
     }
