@@ -111,16 +111,6 @@ class DefaultTestKernel extends Kernel
                 ],
             ]);
 
-            $container->prependExtensionConfig('doctrine', [
-                'dbal' => [
-                    'connections' => [
-                        'default' => [
-                            'use_savepoints' => true
-                        ]
-                    ]
-                ],
-            ]);
-
             $kernelClass = str_contains(static::class, "@anonymous\0") ? parent::class : static::class;
 
             if (!$container->hasDefinition('kernel')) {
